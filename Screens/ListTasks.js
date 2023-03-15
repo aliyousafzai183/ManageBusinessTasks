@@ -5,12 +5,15 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, TextInput } from 
 import { Feather, Ionicons } from '@expo/vector-icons';
 
 const TasksPage = () => {
-    const [tasks, setTasks] = useState([
-        { id: 1, title: 'Task 1', dueDate: '2023-03-31', completed: false, favorite: false },
-        { id: 2, title: 'Task 2', dueDate: '2023-04-15', completed: false, favorite: false },
-        { id: 3, title: 'Task 3', dueDate: '2023-05-01', completed: true, favorite: false },
-        { id: 4, title: 'Task 4', dueDate: '2023-06-15', completed: false, favorite: true },
+    const [initialTasks, setInitialTasks] = useState([
+        { id: 1, title: 'Redux in react-native', dueDate: '2023-03-31', completed: false, favorite: false },
+        { id: 2, title: 'Ali Said', dueDate: '2023-04-15', completed: false, favorite: false },
+        { id: 3, title: 'Gobi Bindi', dueDate: '2023-05-01', completed: true, favorite: false },
+        { id: 4, title: 'Quiz 7', dueDate: '2023-06-15', completed: false, favorite: true },
     ]);
+
+    const [tasks, setTasks] = useState(initialTasks);
+    const [searchText, setSearchText] = useState('');
 
     const toggleTask = (taskId) => {
         setTasks(
@@ -28,6 +31,20 @@ const TasksPage = () => {
         );
     };
 
+    const handleSearch = (text) => {
+        setSearchText(text);
+
+        if (text === '') {
+            setTasks(initialTasks);
+            return;
+        }
+
+        const filteredTasks = initialTasks.filter((task) =>
+            task.title.toLowerCase().includes(text.toLowerCase())
+        );
+        setTasks(filteredTasks);
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -35,18 +52,20 @@ const TasksPage = () => {
                     <TextInput
                         placeholder="Search"
                         style={styles.searchInput}
+                        value={searchText}
+                        onChangeText={handleSearch}
                     />
-                    <TouchableOpacity style={styles.searchButton}>
+                    <Text style={styles.searchButton}>
                         <Feather name="search" size={24} color="#3466AA" />
+                    </Text>
+                    <TouchableOpacity style={styles.filterButton}>
+                        <Feather name="filter" size={24} color="#3466AA" />
                     </TouchableOpacity>
-                <TouchableOpacity style={styles.filterButton}>
-                    <Feather name="filter" size={24} color="#3466AA" />
-                </TouchableOpacity>
                 </View>
             </View>
             <ScrollView style={styles.scrollView}>
                 {tasks.map((task) => (
-                    <TouchableOpacity style={styles.taskMain}>
+                    <TouchableOpacity key={task.id} style={styles.taskMain}>
                         <TouchableOpacity onPress={() => toggleTask(task.id)} style={styles.toggleButton}>
                             {task.completed ? (
                                 <Ionicons name="checkmark-circle-outline" size={24} color="#3466AA" />
@@ -89,7 +108,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom:'5%'
+        marginBottom: '5%'
     },
     scrollView: {
         flex: 1,
