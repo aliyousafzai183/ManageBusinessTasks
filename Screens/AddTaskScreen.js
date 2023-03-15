@@ -4,10 +4,11 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { format } from 'date-fns';
 
 // icons
-import Fontisto from '@expo/vector-icons/Fontisto';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import AntDesign from '@expo/vector-icons/AntDesign';
+// import Fontisto from '@expo/vector-icons/Fontisto';
+// import Ionicons from '@expo/vector-icons/Ionicons';
+// import FontAwesome from '@expo/vector-icons/FontAwesome';
+// import AntDesign from '@expo/vector-icons/AntDesign';
+import {Fontisto, Ionicons, FontAwesome, AntDesign } from '@expo/vector-icons';
 
 
 const AddTaskScreen = ({ navigation }) => {
@@ -193,9 +194,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 1,
         borderColor: '#ccc',
-        padding: 8,
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center'
     },
 
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     },
 
     dateContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     sliderText: {

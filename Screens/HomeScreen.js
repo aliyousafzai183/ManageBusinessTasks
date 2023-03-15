@@ -1,8 +1,4 @@
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity,Image } from 'react-native';
-// import { useState } from 'react';
-
-// Slider
-// import { SliderBox } from "react-native-image-slider-box";
 
 // Icons
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';

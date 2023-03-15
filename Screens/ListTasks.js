@@ -1,11 +1,157 @@
-import {Text, View} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 
-const ListTask = () => {
+// Icons
+import { Feather, Ionicons } from '@expo/vector-icons';
+
+const TasksPage = () => {
+    const [tasks, setTasks] = useState([
+        { id: 1, title: 'Task 1', dueDate: '2023-03-31', completed: false, favorite: false },
+        { id: 2, title: 'Task 2', dueDate: '2023-04-15', completed: false, favorite: false },
+        { id: 3, title: 'Task 3', dueDate: '2023-05-01', completed: true, favorite: false },
+        { id: 4, title: 'Task 4', dueDate: '2023-06-15', completed: false, favorite: true },
+    ]);
+
+    const toggleTask = (taskId) => {
+        setTasks(
+            tasks.map((task) =>
+                task.id === taskId ? { ...task, completed: !task.completed } : task
+            )
+        );
+    };
+
+    const toggleFavorite = (taskId) => {
+        setTasks(
+            tasks.map((task) =>
+                task.id === taskId ? { ...task, favorite: !task.favorite } : task
+            )
+        );
+    };
+
     return (
-        <View>
-            <Text>List Task Screen</Text>
-        </View>
-    )
-}
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <View style={styles.searchBar}>
+                    <TextInput
+                        placeholder="Search"
+                        style={styles.searchInput}
+                    />
+                    <TouchableOpacity style={styles.searchButton}>
+                        <Feather name="search" size={24} color="#3466AA" />
+                    </TouchableOpacity>
+                <TouchableOpacity style={styles.filterButton}>
+                    <Feather name="filter" size={24} color="#3466AA" />
+                </TouchableOpacity>
+                </View>
+            </View>
+            <ScrollView style={styles.scrollView}>
+                {tasks.map((task) => (
+                    <TouchableOpacity style={styles.taskMain}>
+                        <TouchableOpacity onPress={() => toggleTask(task.id)} style={styles.toggleButton}>
+                            {task.completed ? (
+                                <Ionicons name="checkmark-circle-outline" size={24} color="#3466AA" />
+                            ) : (
+                                <Ionicons name="radio-button-off-outline" size={24} color="#3466AA" />
+                            )}
+                        </TouchableOpacity>
+                        <View key={task.id} style={styles.task}>
+                            <View style={styles.row}>
+                                <Text style={styles.title}>{task.title}</Text>
+                                <TouchableOpacity onPress={() => toggleFavorite(task.id)} style={styles.favoriteButton}>
+                                    {task.favorite ? (
+                                        <Ionicons name="star" size={24} color="#3466AA" />
+                                    ) : (
+                                        <Ionicons name="star-outline" size={24} color="gray" />
+                                    )}
+                                </TouchableOpacity>
+                            </View>
+                            <Text style={styles.dueDate}>Due Date: {task.dueDate}</Text>
+                        </View>
+                    </TouchableOpacity>
 
-export default ListTask;
+                ))}
+            </ScrollView>
+        </View>
+    );
+};
+
+export default TasksPage;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#3466AA',
+        paddingLeft: '3%',
+        paddingRight: '3%',
+        paddingTop: '5%'
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom:'5%'
+    },
+    scrollView: {
+        flex: 1,
+    },
+    taskMain: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomColor: 'lightgray',
+        backgroundColor: '#EAEFF6',
+        borderBottomWidth: 1,
+        borderRadius: 20,
+        padding: 10,
+        marginTop: '3%'
+    },
+
+    toggleButton: {
+        marginRight: '3%'
+    },
+
+    task: {
+        flexDirection: 'column',
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    title: {
+        width: '80%',
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: 5,
+    },
+    favoriteButton: {
+        width: '20%',
+    },
+    dueDate: {
+        fontSize: 16,
+        marginVertical: 5,
+    },
+
+    searchBar: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 13,
+        paddingHorizontal: 10,
+    },
+
+    searchInput: {
+        flex: 1,
+        padding: 5,
+    },
+
+    searchButton: {
+        borderRadius: 5,
+        padding: 5,
+        marginLeft: 5,
+    },
+    filterButton: {
+        borderRadius: 5,
+        padding: 5,
+        marginLeft: 5,
+    },
+})

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useEffect } from 'react';
 
 // Screens
 import HomeScreen from './Screens/HomeScreen';
@@ -9,18 +8,11 @@ import ListTask from './Screens/ListTasks';
 import AddTaskScreen from './Screens/AddTaskScreen';
 import SettingScreen from './Screens/SettingScreen';
 
-// Splash Screen
-import { SplashScreen } from 'expo-splash-screen';
-
 // Icons
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 export default function App() {
-
-  useEffect(() => {
-    SplashScreen.hideAsync();
-  }, []);
 
   return (
     <NavigationContainer>
@@ -68,7 +60,7 @@ export default function App() {
           name="Add"
           component={AddTaskScreen}
           options={{
-            // headerShown: false
+            tabBarHideOnKeyboard:true
           }}
         />
         
