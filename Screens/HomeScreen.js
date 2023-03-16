@@ -5,6 +5,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const HomeScreen = ({navigation}) => {
+    const [nightMode, setNightMode] = (false);
     return (
         <View style={styles.main}>
 
@@ -85,7 +86,6 @@ const HomeScreen = ({navigation}) => {
 
 
             </View>
-
 
         </View>
     )

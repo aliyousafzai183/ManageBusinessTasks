@@ -18,42 +18,42 @@ const SettingScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: nightMode ? '#222222' : '#3466AA' }]}>
 
             <View style={styles.one}>
-                <Text style={styles.title}>Settings</Text>
-                <AntDesign name="plussquareo" size={35} color="white" />
+                <Text style={[styles.title, { color: nightMode ? 'white' : 'white' }]}>Settings</Text>
+                <AntDesign name="plussquareo" size={35} color={nightMode ? 'white' : 'white'} />
             </View>
 
             <View style={styles.actionlist}>
                 <TouchableOpacity
-                    style={[styles.actionitemlist1, { opacity: notifications ? 1 : 0.8 }]}
+                    style={[styles.actionitemlist1, { opacity: notifications ? 1 : 0.8,backgroundColor: nightMode ? "#464646" : "#EAEFF6" }]}
                     activeOpacity={1}
                     onPress={handleNotifications}
                 >
-                    <Ionicons name={notifications ? 'notifications-outline' : 'notifications-off-outline'} size={70} color="#3466AA" />
-                    <Text style={styles.txt}>{notifications ? "ON" : "OFF"}</Text>
+                    <Ionicons name={notifications ? 'notifications-outline' : 'notifications-off-outline'} size={70} color={nightMode ? 'white' : '#3466AA'} />
+                    <Text style={[styles.txt, { color: nightMode ? 'white' : '#3466AA' }]}>{notifications ? "ON" : "OFF"}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[styles.actionitemlist1, { backgroundColor: nightMode ? "#262625" : "#EAEFF6" }]}
+                    style={[styles.actionitemlist1, { backgroundColor: nightMode ? "#464646" : "#EAEFF6" }]}
                     activeOpacity={1}
                     onPress={handleNightMode}
                 >
-                    <Ionicons name={nightMode ? 'md-moon-outline' : 'ios-sunny-outline'} size={70} color="#3466AA" />
-                    <Text style={styles.txt}>{nightMode ? "Dark" : "Light"}</Text>
+                    <Ionicons name={nightMode ? 'md-sunny-outline' : 'ios-moon-outline'} size={70} color={nightMode ? 'white' : '#3466AA'} />
+                    <Text style={[styles.txt, { color: nightMode ? 'white' : '#3466AA' }]}>{nightMode ? "Light" : "Dark"}</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.actionlist}>
-                <View style={styles.actionitemlist1}>
-                    <Octicons name="versions" size={70} color="#3466AA" />
-                    <Text style={styles.txt}>Version: 1.0.0</Text>
+                <View style={[styles.actionitemlist1, {backgroundColor: nightMode ? "#464646" : "#EAEFF6" }]}>
+                    <Octicons name="versions" size={70} color={nightMode ? 'white' : '#3466AA'} />
+                    <Text style={[styles.txt, { color: nightMode ? 'white' : '#3466AA' }]}>Version: 1.0.0</Text>
                 </View>
 
-                <View style={styles.actionitemlist1}>
-                    <AntDesign name="like2" size={70} color="#3466AA" />
-                    <Text style={styles.txt}>Rate Us</Text>
+                <View style={[styles.actionitemlist1, {backgroundColor: nightMode ? "#464646" : "#EAEFF6" }]}>
+                    <AntDesign name="like2" size={70} color={nightMode ? 'white' : '#3466AA'} />
+                    <Text style={[styles.txt, { color: nightMode ? 'white' : '#3466AA' }]}>Rate Us</Text>
                 </View>
             </View>
 
