@@ -3,10 +3,18 @@ import { useState, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { format } from 'date-fns';
 
+import { connect } from 'react-redux';
+
 // icons
 import { Fontisto, Ionicons, FontAwesome, AntDesign } from '@expo/vector-icons';
 
-const AddTaskScreen = ({ navigation }) => {
+// styles
+import styles from '../Styles/addTaskScreenStyle/style';
+import nightStyle from '../Styles/addTaskScreenStyle/nightStyle';
+import darkTheme from '../Styles/darkTheme';
+
+
+const AddTaskScreen = ({ navigation, nightMode }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState();
@@ -58,7 +66,7 @@ const AddTaskScreen = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView
-            style={styles.container}
+            style={nightMode ? nightStyle.container : styles.container}
             behavior="height"
         >
 
@@ -68,61 +76,65 @@ const AddTaskScreen = ({ navigation }) => {
                     <TouchableOpacity
                         onPress={handleClear}
                     >
-                        <Ionicons name="refresh-circle-outline" size={35} color="white" />
+                        <Ionicons name="refresh-circle-outline" size={35} color={nightMode ? darkTheme.colors.accentColor : darkTheme.colors.text} />
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={handleSubmit}
                     >
-                        <AntDesign name="plussquareo" size={35} color="white" />
+                        <AntDesign name="plussquareo" size={35} color={nightMode ? darkTheme.colors.accentColor : darkTheme.colors.text} />
                     </TouchableOpacity>
                 </View>
             </View>
             <TextInput
-                style={styles.one}
+                style={nightMode ? nightStyle.one : styles.one}
                 placeholder="Enter a title"
                 value={title}
                 onChangeText={handleTitleChange}
+                placeholderTextColor={nightMode? darkTheme.colors.text : "#3466AA"}
+                color={nightMode? darkTheme.colors.text : "#3466AA"}
             />
             <TextInput
-                style={styles.two}
+                style={nightMode ? nightStyle.two : styles.two}
                 multiline
                 numberOfLines={23}
                 placeholder="Enter a description"
                 value={description}
                 onChangeText={handleDescriptionChange}
+                placeholderTextColor={nightMode? darkTheme.colors.text : "#3466AA"}
+                color={nightMode? darkTheme.colors.text : "#3466AA"}
             />
-            <View style={styles.three}>
-                <View style={styles.three_1}>
+            <View style={nightMode ? nightStyle.three : styles.three}>
+                <View style={nightMode ? nightStyle.three_1 : styles.three_1}>
                     <TouchableOpacity
-                        style={[styles.three_1_1, { opacity: notifications ? 1 : 0.8 }]}
+                        style={[nightMode ? nightStyle.three_1_1 : styles.three_1_1,  { opacity: notifications ? 1 : 0.8 }]}
                         activeOpacity={1}
                         onPress={handleNotifications}
                         disabled={!showDueDateAlert}
                     >
-                        <Text style={styles.sliderText}>Due Date Alert</Text>
-                        <Ionicons name={notifications ? 'notifications-outline' : 'notifications-off-outline'} size={30} color="#3466AA" />
+                        <Text style={nightMode ? nightStyle.sliderText : styles.sliderText}>Due Date Alert</Text>
+                        <Ionicons name={notifications ? 'notifications-outline' : 'notifications-off-outline'} size={30} color= {nightMode? darkTheme.colors.text : "#3466AA"} />
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={[styles.three_1_1, { opacity: isFavourite ? 1 : 0.8 }]}
+                        style={[nightMode ? nightStyle.three_1_1 : styles.three_1_1,  { opacity: isFavourite ? 1 : 0.8 }]}
                         activeOpacity={1}
                         onPress={handleFavourite}
                     >
-                        <Text style={styles.sliderText}>Add to Favourite</Text>
-                        <FontAwesome name={isFavourite ? 'star' : 'star-o'} size={30} color="#3466AA" />
+                        <Text style={nightMode ? nightStyle.sliderText : styles.sliderText}>Add to Favourite</Text>
+                        <FontAwesome name={isFavourite ? 'star' : 'star-o'} size={30} color= {nightMode? darkTheme.colors.text : "#3466AA"} />
                     </TouchableOpacity>
 
                 </View>
                 <TouchableOpacity
-                    style={[styles.three_2, { opacity: date ? 1 : 0.8 }]}
+                    style={[nightMode ? nightStyle.three_2 : styles.three_2,  { opacity: showDueDateAlert ? 1 : 0.8 }]}
                     onPress={() => setDatePickerVisible(true)}
                 >
 
-                    <Fontisto name="date" size={50} color="#3466AA" />
-                    <View style={styles.dateContainer}>
-                        <Text style={styles.label}>Due date:</Text>
-                        <Text style={styles.date}>
+                    <Fontisto name="date" size={50} color= {nightMode? darkTheme.colors.text : "#3466AA"} />
+                    <View style={nightMode ? nightStyle.dateContainer : styles.dateContainer}>
+                        <Text style={nightMode ? nightStyle.label : styles.label}>Due date:</Text>
+                        <Text style={nightMode ? nightStyle.date : styles.date}>
                             {date ? format(date, 'MMM dd, yyyy') : 'None'}
                         </Text>
                     </View>
@@ -139,115 +151,10 @@ const AddTaskScreen = ({ navigation }) => {
         </KeyboardAvoidingView>
 
     )
-}
+};
 
-export default AddTaskScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: '10%',
-        paddingLeft: '3%',
-        paddingRight: '3%',
-        paddingBottom: '5%',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        backgroundColor: '#3466AA',
-    },
-
-    title: {
-        width: '80%',
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginVertical: 5,
-        color: 'white',
-        fontSize: 30
-    },
-
-    one: {
-        backgroundColor: '#EAEFF6',
-        height: '10%',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: 8,
-    },
-
-    two: {
-        backgroundColor: '#EAEFF6',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: 8,
-        textAlignVertical: 'top',
-        color: 'black'
-    },
-
-    three: {
-        height: '20%',
-        borderRadius: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-
-    three_1: {
-        width: '63%',
-        borderRadius: 20,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-    },
-
-    three_1_1: {
-        backgroundColor: '#EAEFF6',
-        borderRadius: 20,
-        height: '44%',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: 8,
-        paddingRight: 8,
-        alignItems: 'center'
-    },
-
-    three_2: {
-        width: '33%',
-        backgroundColor: '#EAEFF6',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-    },
-
-    four: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-
-    label: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
-
-    date: {
-        fontSize: 16,
-    },
-
-    dateContainer: {
-        alignItems: 'center',
-    },
-
-    sliderText: {
-        fontSize: 14,
-        marginVertical: 16,
-    },
-
-    SwitchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    }
+const mapStateToProps = state => ({
+    nightMode: state.nightMode
 })
+
+export default connect(mapStateToProps)(AddTaskScreen);

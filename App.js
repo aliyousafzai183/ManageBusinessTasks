@@ -2,6 +2,10 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+// redux
+import { Provider } from 'react-redux';
+import store from './assets/store';
+
 // Screens
 import HomeScreen from './assets/Screens/HomeScreen';
 import ListTask from './assets/Screens/ListTasks';
@@ -15,6 +19,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -82,5 +87,6 @@ export default function App() {
 
       </Tab.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }

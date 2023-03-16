@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import darkTheme from '../darkTheme';
 
-export default styles = StyleSheet.create({
+export default nightStyle = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: '10%',
@@ -9,7 +10,7 @@ export default styles = StyleSheet.create({
         paddingBottom: '5%',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        backgroundColor: '#3466AA',
+        backgroundColor: darkTheme.colors.background,
     },
 
     title: {
@@ -17,24 +18,20 @@ export default styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginVertical: 5,
-        color: 'white',
+        color: darkTheme.colors.text,
         fontSize: 30
     },
 
     one: {
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.SecondaryColor,
         height: '10%',
         borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
         padding: 8,
     },
 
     two: {
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.SecondaryColor,
         borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
         padding: 8,
         textAlignVertical: 'top',
         color: 'black'
@@ -55,11 +52,9 @@ export default styles = StyleSheet.create({
     },
 
     three_1_1: {
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.primary,
         borderRadius: 20,
         height: '44%',
-        borderWidth: 1,
-        borderColor: '#ccc',
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingLeft: 8,
@@ -69,10 +64,8 @@ export default styles = StyleSheet.create({
 
     three_2: {
         width: '33%',
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.primary,
         borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems: 'center'
@@ -88,10 +81,12 @@ export default styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 8,
+        color: darkTheme.colors.text
     },
 
     date: {
         fontSize: 16,
+        color: darkTheme.colors.text
     },
 
     dateContainer: {
@@ -101,10 +96,11 @@ export default styles = StyleSheet.create({
     sliderText: {
         fontSize: 14,
         marginVertical: 16,
+        color: darkTheme.colors.text
     },
 
     SwitchContainer: {
         flexDirection: 'row',
         alignItems: 'center'
-    }
+    },
 })

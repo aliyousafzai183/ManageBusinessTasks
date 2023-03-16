@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import darkTheme from "../darkTheme";
 
 export default styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#3466AA',
+        backgroundColor: darkTheme.colors.background,
         paddingLeft: '3%',
         paddingRight: '3%',
         paddingTop: '8%'
@@ -20,8 +21,7 @@ export default styles = StyleSheet.create({
     taskMain: {
         flexDirection: 'row',
         alignItems: 'center',
-        borderBottomColor: 'lightgray',
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.SecondaryColor,
         borderBottomWidth: 1,
         borderRadius: 20,
         padding: 10,
@@ -45,6 +45,7 @@ export default styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginVertical: 5,
+        color:darkTheme.colors.text
     },
     favoriteButton: {
         width: '20%',
@@ -52,12 +53,13 @@ export default styles = StyleSheet.create({
     dueDate: {
         fontSize: 16,
         marginVertical: 5,
+        color:darkTheme.colors.text
     },
 
     searchBar: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: darkTheme.colors.primary,
         borderRadius: 13,
         paddingHorizontal: 10,
     },
@@ -68,11 +70,6 @@ export default styles = StyleSheet.create({
     },
 
     searchButton: {
-        borderRadius: 5,
-        padding: 5,
-        marginLeft: 5,
-    },
-    filterButton: {
         borderRadius: 5,
         padding: 5,
         marginLeft: 5,

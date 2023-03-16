@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-
+import darkTheme from '../darkTheme';
 export default styles = StyleSheet.create({
     main: {
         flex: 1,
@@ -8,7 +8,7 @@ export default styles = StyleSheet.create({
         paddingRight: '3%',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        backgroundColor: '#3466AA'
+        backgroundColor: darkTheme.colors.background
     },
 
     upperContainer: {
@@ -20,17 +20,17 @@ export default styles = StyleSheet.create({
     mainHead: {
         fontSize: 30,
         height: '20%',
-        color: '#ffff'
+        color: darkTheme.colors.text
     },
 
     slider: {
         height: '80%',
         borderRadius: 20,
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.SecondaryColor,
 
 
         // shadow
-        shadowColor: "#000",
+        shadowColor: darkTheme.colors.primary,
         shadowOffset: {
             width: 0,
             height: 12,
@@ -50,7 +50,7 @@ export default styles = StyleSheet.create({
 
     actionsText: {
         fontSize: 20,
-        color: '#ffff'
+        color: darkTheme.colors.text
     },
 
     actionlist: {
@@ -63,12 +63,12 @@ export default styles = StyleSheet.create({
     actionitemlist1: {
         borderRadius: 20,
         width: '33%',
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.SecondaryColor,
         alignItems: 'center',
         justifyContent: 'center',
 
         // shadow
-        shadowColor: "#000",
+        shadowColor: darkTheme.colors.primary,
         shadowOffset: {
             width: 0,
             height: 12,
@@ -82,13 +82,13 @@ export default styles = StyleSheet.create({
     actionitemlist2: {
         borderRadius: 20,
         width: '64%',
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.SecondaryColor,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
 
         // shadow
-        shadowColor: "#000",
+        shadowColor: darkTheme.colors.primary,
         shadowOffset: {
             width: 0,
             height: 12,
@@ -107,7 +107,7 @@ export default styles = StyleSheet.create({
     },
 
     txt:{
-        color: '#3466AA',
+        color: '#e6e8e6',
         fontSize:15
     },
 
