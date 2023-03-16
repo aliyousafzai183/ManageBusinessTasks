@@ -1,19 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 
 // Icons
 import { Feather, Ionicons } from '@expo/vector-icons';
 
-const TasksPage = () => {
+const TasksPage = ({ route }) => {
     const [initialTasks, setInitialTasks] = useState([
         { id: 1, title: 'Redux in react-native', dueDate: '2023-03-31', completed: false, favorite: false },
         { id: 2, title: 'Ali Said', dueDate: '2023-04-15', completed: false, favorite: false },
         { id: 3, title: 'Gobi Bindi', dueDate: '2023-05-01', completed: true, favorite: false },
-        { id: 4, title: 'Quiz 7', dueDate: '2023-06-15', completed: false, favorite: true },
+        { id: 4, title: 'Quiz 7', dueDate: '2023-03-15', completed: false, favorite: true },
     ]);
 
     const [tasks, setTasks] = useState(initialTasks);
     const [searchText, setSearchText] = useState('');
+
+    useEffect(() => {
+        if (route.params?.value === 'Completed') {
+            setTasks(initialTasks.filter((task) => task.completed === true));
+        } else if (route.params?.value === 'Pending') {
+            setTasks(initialTasks.filter((task) => task.completed === false));
+        } else if (route.params?.value === 'Favourite') {
+            setTasks(initialTasks.filter((task) => task.favorite === true));
+        } else if (route.params?.value === 'Due-Today') {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            setTasks(initialTasks.filter((task) => {
+                const dueDate = new Date(task.dueDate);
+                console.log(today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate());
+                return (dueDate.getTime() === today.getTime());
+            }));
+        } else {
+            setTasks(initialTasks);
+        }
+    }, [route.params?.value]);
 
     const toggleTask = (taskId) => {
         setTasks(
@@ -47,6 +67,7 @@ const TasksPage = () => {
 
     return (
         <View style={styles.container}>
+            <Text style={[styles.title, { color: 'white', fontSize:30, marginBottom:'6%' }]}>{route.params?.value} Tasks</Text>
             <View style={styles.header}>
                 <View style={styles.searchBar}>
                     <TextInput
@@ -58,9 +79,6 @@ const TasksPage = () => {
                     <Text style={styles.searchButton}>
                         <Feather name="search" size={24} color="#3466AA" />
                     </Text>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Feather name="filter" size={24} color="#3466AA" />
-                    </TouchableOpacity>
                 </View>
             </View>
             <ScrollView style={styles.scrollView}>
