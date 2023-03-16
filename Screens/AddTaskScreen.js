@@ -1,15 +1,10 @@
 import { Text, View, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, Switch } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { format } from 'date-fns';
 
 // icons
-// import Fontisto from '@expo/vector-icons/Fontisto';
-// import Ionicons from '@expo/vector-icons/Ionicons';
-// import FontAwesome from '@expo/vector-icons/FontAwesome';
-// import AntDesign from '@expo/vector-icons/AntDesign';
-import {Fontisto, Ionicons, FontAwesome, AntDesign } from '@expo/vector-icons';
-
+import { Fontisto, Ionicons, FontAwesome, AntDesign } from '@expo/vector-icons';
 
 const AddTaskScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');
@@ -52,11 +47,37 @@ const AddTaskScreen = ({ navigation }) => {
         navigation.navigate('Home');
     }
 
+    const handleClear = () => {
+        setTitle();
+        setDescription();
+        setDate();
+        setIsFavourite(false);
+        setNotifications(false);
+        setShowDueDateAlert(false);
+    }
+
     return (
         <KeyboardAvoidingView
             style={styles.container}
             behavior="height"
         >
+
+            <View style={styles.four}>
+                <Text style={styles.title}>Add Task</Text>
+                <View style={{flexDirection:'row'}}>
+                    <TouchableOpacity
+                        onPress={handleClear}
+                    >
+                        <Ionicons name="refresh-circle-outline" size={35} color="white" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={handleSubmit}
+                    >
+                        <AntDesign name="plussquareo" size={35} color="white" />
+                    </TouchableOpacity>
+                </View>
+            </View>
             <TextInput
                 style={styles.one}
                 placeholder="Enter a title"
@@ -66,7 +87,7 @@ const AddTaskScreen = ({ navigation }) => {
             <TextInput
                 style={styles.two}
                 multiline
-                numberOfLines={14}
+                numberOfLines={23}
                 placeholder="Enter a description"
                 value={description}
                 onChangeText={handleDescriptionChange}
@@ -115,13 +136,6 @@ const AddTaskScreen = ({ navigation }) => {
                 </TouchableOpacity>
 
             </View>
-
-            <TouchableOpacity
-                style={styles.four}
-                onPress={handleSubmit}
-            >
-                <AntDesign name="plus" size={50} color="#3466AA" />
-            </TouchableOpacity>
         </KeyboardAvoidingView>
 
     )
@@ -141,6 +155,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#3466AA',
     },
 
+    title: {
+        width: '80%',
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: 5,
+        color: 'white',
+        fontSize: 30
+    },
+
     one: {
         backgroundColor: '#EAEFF6',
         height: '10%',
@@ -152,7 +175,6 @@ const styles = StyleSheet.create({
 
     two: {
         backgroundColor: '#EAEFF6',
-        height: '50%',
         borderRadius: 20,
         borderWidth: 1,
         borderColor: '#ccc',
@@ -200,13 +222,9 @@ const styles = StyleSheet.create({
     },
 
     four: {
-        backgroundColor: '#EAEFF6',
-        height: '10%',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        alignItems: 'center',
-        justifyContent: 'center'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
 
     label: {

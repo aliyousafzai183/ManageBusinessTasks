@@ -27,13 +27,13 @@ const HomeScreen = ({navigation}) => {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.actionitemlist2}
-                        onPress={()=>navigation.navigate('List', {value:"Pending"})}
+                        onPress={()=>navigation.navigate('List')}
                     >
                         {/* <Ionicons name="clipboard-outline" size={70} color="#3466AA" /> */}
-                        <MaterialIcons name="pending-actions" size={70}  color="#3466AA" />
+                        <MaterialCommunityIcons name="clipboard-list-outline" size={70}  color="#3466AA" />
 
                         <View>
-                            <Text style={styles.txt}>Pending</Text>
+                            <Text style={styles.txt}>All</Text>
                             <Text style={styles.txt}>Tasks</Text>
                         </View>
                     </TouchableOpacity>
@@ -62,19 +62,27 @@ const HomeScreen = ({navigation}) => {
 
                 <View style={styles.actionlist}>
                     <TouchableOpacity
-                        style={[styles.actionitemlist2, {width:'100%'}]}
+                        style={styles.actionitemlist1}
+                        onPress={()=>navigation.navigate('List', {value:"Pending"})}
+                    >
+                        <MaterialIcons name="pending-actions" size={70}  color="#3466AA" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.actionitemlist2}
                         onPress={()=>navigation.navigate('List', {value:"Due-Today"})}
                     >
-                        {/* <Ionicons name="timer-outline" size={70} color="#3466AA" /> */}
-                        <MaterialCommunityIcons name="clipboard-text-outline" size={70} color="#3466AA" />
+                        {/* <Ionicons name="clipboard-outline" size={70} color="#3466AA" /> */}
+                        <MaterialCommunityIcons name="clipboard-alert-outline" size={70}  color="#3466AA" />
 
                         <View>
+                            <Text style={styles.txt}>Pending</Text>
                             <Text style={styles.txt}>Tasks</Text>
-                            <Text style={styles.txt}>Due</Text>
                             <Text style={styles.txt}>Today</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
+
 
             </View>
 

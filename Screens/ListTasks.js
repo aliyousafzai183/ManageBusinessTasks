@@ -9,7 +9,7 @@ const TasksPage = ({ route }) => {
         { id: 1, title: 'Redux in react-native', dueDate: '2023-03-31', completed: false, favorite: false },
         { id: 2, title: 'Ali Said', dueDate: '2023-04-15', completed: false, favorite: false },
         { id: 3, title: 'Gobi Bindi', dueDate: '2023-05-01', completed: true, favorite: false },
-        { id: 4, title: 'Quiz 7', dueDate: '2023-03-15', completed: false, favorite: true },
+        { id: 4, title: 'Quiz 7', dueDate: '2023-03-16', completed: false, favorite: true },
     ]);
 
     const [tasks, setTasks] = useState(initialTasks);
@@ -24,11 +24,13 @@ const TasksPage = ({ route }) => {
             setTasks(initialTasks.filter((task) => task.favorite === true));
         } else if (route.params?.value === 'Due-Today') {
             const now = new Date();
-            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const today = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
             setTasks(initialTasks.filter((task) => {
-                const dueDate = new Date(task.dueDate);
-                console.log(today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate());
-                return (dueDate.getTime() === today.getTime());
+                const dueDate = task.dueDate;
+                return (dueDate === today);
             }));
         } else {
             setTasks(initialTasks);
@@ -67,7 +69,7 @@ const TasksPage = ({ route }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.title, { color: 'white', fontSize:30, marginBottom:'6%' }]}>{route.params?.value} Tasks</Text>
+            <Text style={[styles.title, { color: 'white', fontSize: 30, marginBottom: '6%' }]}>{route.params?.value} Tasks</Text>
             <View style={styles.header}>
                 <View style={styles.searchBar}>
                     <TextInput
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3466AA',
         paddingLeft: '3%',
         paddingRight: '3%',
-        paddingTop: '5%'
+        paddingTop: '8%'
     },
     header: {
         flexDirection: 'row',

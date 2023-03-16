@@ -40,11 +40,11 @@ export default function App() {
             }
 
             // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size+5} color={color} />;
+            return <Ionicons name={iconName} size={size + 5} color={color} />;
           },
           tabBarActiveTintColor: '#3466AA',
           tabBarInactiveTintColor: '#000000',
-          tabBarShowLabel:false
+          tabBarShowLabel: false
         })}
       >
 
@@ -60,10 +60,10 @@ export default function App() {
           name="Add"
           component={AddTaskScreen}
           options={{
-            tabBarHideOnKeyboard:true
+            headerShown: false
           }}
         />
-        
+
         <Tab.Screen
           name="List"
           component={ListTask}
@@ -76,7 +76,7 @@ export default function App() {
           name="Settings"
           component={SettingScreen}
           options={{
-            headerShown: false
+            headerShown: false,
           }}
         />
 
