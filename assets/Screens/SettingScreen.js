@@ -4,6 +4,9 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Octicons, AntDesign, Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 
+// styles
+
+
 const SettingScreen = () => {
 
     const [notifications, setNotifications] = useState(true);

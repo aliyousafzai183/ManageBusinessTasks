@@ -3,10 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Screens
-import HomeScreen from './Screens/HomeScreen';
-import ListTask from './Screens/ListTasks';
-import AddTaskScreen from './Screens/AddTaskScreen';
-import SettingScreen from './Screens/SettingScreen';
+import HomeScreen from './assets/Screens/HomeScreen';
+import ListTask from './assets/Screens/ListTasks';
+import AddTaskScreen from './assets/Screens/AddTaskScreen';
+import SettingScreen from './assets/Screens/SettingScreen';
 
 // Icons
 import Ionicons from '@expo/vector-icons/Ionicons';
