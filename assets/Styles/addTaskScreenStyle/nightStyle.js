@@ -19,7 +19,8 @@ export default nightStyle = StyleSheet.create({
         fontWeight: 'bold',
         marginVertical: 5,
         color: darkTheme.colors.text,
-        fontSize: 30
+        fontSize: 30,
+        
     },
 
     one: {
@@ -27,6 +28,17 @@ export default nightStyle = StyleSheet.create({
         height: '10%',
         borderRadius: 20,
         padding: 8,
+
+        // shadow
+        shadowColor: darkTheme.colors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
     },
 
     two: {
@@ -34,7 +46,18 @@ export default nightStyle = StyleSheet.create({
         borderRadius: 20,
         padding: 8,
         textAlignVertical: 'top',
-        color: 'black'
+        color: 'black',
+
+        // shadow
+        shadowColor: darkTheme.colors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
     },
 
     three: {
@@ -42,6 +65,7 @@ export default nightStyle = StyleSheet.create({
         borderRadius: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
+
     },
 
     three_1: {
@@ -74,7 +98,18 @@ export default nightStyle = StyleSheet.create({
     four: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+
+        // shadow
+        shadowColor: darkTheme.colors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
     },
 
     label: {

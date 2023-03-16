@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import darkTheme from "../darkTheme";
 
 export default styles = StyleSheet.create({
     container: {
@@ -10,14 +10,14 @@ export default styles = StyleSheet.create({
         paddingBottom: '5%',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        backgroundColor: '#3466AA',
+        backgroundColor: darkTheme.colors.background,
     },
 
     title: {
         fontSize: 18,
         fontWeight: 'bold',
         marginVertical: 5,
-        color: 'white',
+        color: darkTheme.colors.text,
         fontSize: 30
     },
 
@@ -31,18 +31,18 @@ export default styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         height: '20%',
-        marginTop: '4%'
+        marginTop: '4%',
     },
 
     actionitemlist1: {
         borderRadius: 20,
         width: '48%',
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.SecondaryColor,
         alignItems: 'center',
         justifyContent: 'center',
 
         // shadow
-        shadowColor: "#000",
+        shadowColor: darkTheme.colors.primary,
         shadowOffset: {
             width: 0,
             height: 12,
@@ -56,13 +56,13 @@ export default styles = StyleSheet.create({
     actionitemlist2: {
         borderRadius: 20,
         width: '48%',
-        backgroundColor: '#EAEFF6',
+        backgroundColor: darkTheme.colors.SecondaryColor,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
 
         // shadow
-        shadowColor: "#000",
+        shadowColor: darkTheme.colors.primary,
         shadowOffset: {
             width: 0,
             height: 12,
@@ -74,7 +74,7 @@ export default styles = StyleSheet.create({
     },
 
     txt: {
-        color: '#3466AA'
+        color: darkTheme.colors.text
     }
 
 })

@@ -34,6 +34,16 @@ export default styles = StyleSheet.create({
 
     task: {
         flexDirection: 'column',
+        // shadow
+        shadowColor: darkTheme.colors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
     },
     row: {
         flexDirection: 'row',
@@ -62,6 +72,17 @@ export default styles = StyleSheet.create({
         backgroundColor: darkTheme.colors.primary,
         borderRadius: 13,
         paddingHorizontal: 10,
+
+        // shadow
+        shadowColor: darkTheme.colors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
     },
 
     searchInput: {
