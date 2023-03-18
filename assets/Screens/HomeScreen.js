@@ -17,7 +17,14 @@ const HomeScreen = ({navigation, nightMode}) => {
 
             <View style={styles.upperContainer}>
                 <Text style={styles.mainHead}>Manage Business</Text>
-                <Image style={styles.mainImage} source={require('../main.png')} />
+                <View style={nightMode? nightStyle.ImageContainer : styles.ImageContainer}>
+                    <View style={nightMode? nightStyle.textContainer : styles.textContainer}>
+                        <Text style={nightMode? nightStyle.slidertxt : styles.slidertxt}>Manage Your</Text>
+                        <Text style={nightMode? nightStyle.slidertxt : styles.slidertxt}>Tasks In</Text>
+                        <Text style={nightMode? nightStyle.slidertxt : styles.slidertxt}>One Place</Text>
+                    </View>
+                    <Image style={styles.mainImage} source={require('../main.png')} />
+                </View>
             </View>
 
             <View style={styles.middleContainer}>

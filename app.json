@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.aliyousafzai183.ManageBusinessTasks"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fba84728-c602-4841-86f4-e6d1dbf0ad7c"
+      }
+    },
+    "owner": "aliyousafzai183"
   }
 }

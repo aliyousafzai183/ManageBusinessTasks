@@ -113,6 +113,48 @@ export default styles = StyleSheet.create({
 
     mainImage:{
         borderRadius:20
+    },
+
+    
+    mainImage:{
+        borderRadius:20,
+        width:'70%',
+    },
+
+    ImageContainer:{
+        height:'80%',
+        backgroundColor:  darkTheme.colors.SecondaryColor,
+        flexDirection:'row',
+        alignItems:'center',
+        padding:20,
+        borderWidth:2,
+        borderRadius:20,
+
+        
+        // shadow
+        shadowColor: darkTheme.colors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
+    },
+
+    textContainer:{
+        width:'30%',
+        borderRadius:2,
+        alignItems:'flex-start'
+    },
+
+    slidertxt:{
+        color:'white',
+        fontSize:18,
+        fontStyle:'italic',
+        marginBottom:'4%',
+        fontWeight:'bold'
     }
 
 })

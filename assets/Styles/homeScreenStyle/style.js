@@ -14,7 +14,7 @@ export default styles = StyleSheet.create({
     upperContainer: {
         width: '100%',
         height: '33%',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
 
     mainHead: {
@@ -112,7 +112,31 @@ export default styles = StyleSheet.create({
     },
 
     mainImage:{
+        borderRadius:20,
+        width:'70%',
+    },
+
+    ImageContainer:{
+        height:'80%',
+        backgroundColor:'#EAEFF6',
+        flexDirection:'row',
+        // justifyContent:'center',
+        alignItems:'center',
+        padding:20,
         borderRadius:20
+    },
+
+    textContainer:{
+        width:'30%',
+        alignItems:'flex-start'
+    },
+
+    slidertxt:{
+        color:"#3466AA",
+        fontSize:18,
+        fontStyle:'italic',
+        marginBottom:'4%',
+        fontWeight:'bold'
     }
 
 })
