@@ -1,5 +1,4 @@
-import { Text, View, TouchableOpacity,Image } from 'react-native';
-
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 // Icons
@@ -11,19 +10,42 @@ import styles from '../Styles/homeScreenStyle/style';
 import nightStyle from '../Styles/homeScreenStyle/nightStyle';
 import darkTheme from '../Styles/darkTheme';
 
-const HomeScreen = ({navigation, nightMode}) => {
-    return (
-        <View style={nightMode? nightStyle.main : styles.main}>
+// carousel
+// import Carousel from 'react-native-snap-carousel';
 
+const HomeScreen = ({ navigation, nightMode }) => {
+    const images = [
+        { id: 1, url: require('../Instruction1.png') },
+        { id: 2, url: require('../Instruction2.png') },
+        { id: 3, url: require('../Instruction3.png') },
+    ];
+
+    const renderItem = ({ item }) => (
+        <Image source={item.url} style={styles.mainImage} />
+    );
+
+    return (
+        <View style={nightMode ? nightStyle.main : styles.main}>
             <View style={styles.upperContainer}>
                 <Text style={styles.mainHead}>Manage Business</Text>
-                <View style={nightMode? nightStyle.ImageContainer : styles.ImageContainer}>
-                    <View style={nightMode? nightStyle.textContainer : styles.textContainer}>
-                        <Text style={nightMode? nightStyle.slidertxt : styles.slidertxt}>Manage Your</Text>
-                        <Text style={nightMode? nightStyle.slidertxt : styles.slidertxt}>Tasks In</Text>
-                        <Text style={nightMode? nightStyle.slidertxt : styles.slidertxt}>One Place</Text>
+                <View style={nightMode ? nightStyle.ImageContainer : styles.ImageContainer}>
+                    <View style={nightMode ? nightStyle.textContainer : styles.textContainer}>
+                        <Text style={nightMode ? nightStyle.slidertxt : styles.slidertxt}>Manage Your</Text>
+                        <Text style={nightMode ? nightStyle.slidertxt : styles.slidertxt}>Tasks In</Text>
+                        <Text style={nightMode ? nightStyle.slidertxt : styles.slidertxt}>One Place</Text>
                     </View>
-                    <Image style={styles.mainImage} source={require('../main.png')} />
+                    <View>
+                        {/* <Carousel
+                            data={images}
+                            renderItem={renderItem}
+                            sliderWidth={300}
+                            itemWidth={250}
+                            loop={true}
+                            autoplay
+                            autoplayInterval={3000}
+                        /> */}
+                        <Image source={require('../Instruction3.png')} />
+                    </View>
                 </View>
             </View>
 
@@ -33,66 +55,62 @@ const HomeScreen = ({navigation, nightMode}) => {
 
                 <View style={styles.actionlist}>
                     <TouchableOpacity
-                         style={nightMode? nightStyle.actionitemlist1 : styles.actionitemlist1}
-                        onPress={()=>navigation.navigate('Add')}
+                        style={nightMode ? nightStyle.actionitemlist1 : styles.actionitemlist1}
+                        onPress={() => navigation.navigate('Add')}
                     >
-                        {/* <Ionicons name="ios-add-circle-outline" size={70} color="#3466AA" /> */}
-                        <MaterialCommunityIcons name="clipboard-plus-outline" size={70} color= {nightMode? darkTheme.colors.text : "#3466AA"}/>
+                        <MaterialCommunityIcons name="clipboard-plus-outline" size={70} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={nightMode? nightStyle.actionitemlist2 : styles.actionitemlist2}
-                        onPress={()=>navigation.navigate('List')}
+                        style={nightMode ? nightStyle.actionitemlist2 : styles.actionitemlist2}
+                        onPress={() => navigation.navigate('List')}
                     >
-                        {/* <Ionicons name="clipboard-outline" size={70} color="#3466AA" /> */}
-                        <MaterialCommunityIcons name="clipboard-list-outline" size={70}  color={nightMode? darkTheme.colors.text : "#3466AA"} />
+                        <MaterialCommunityIcons name="clipboard-list-outline" size={70} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
 
                         <View>
-                            <Text style={nightMode? nightStyle.txt : styles.txt}>All</Text>
-                            <Text style={nightMode? nightStyle.txt : styles.txt}>Tasks</Text>
+                            <Text style={nightMode ? nightStyle.txt : styles.txt}>All</Text>
+                            <Text style={nightMode ? nightStyle.txt : styles.txt}>Tasks</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.actionlist}>
                     <TouchableOpacity
-                        style={nightMode? nightStyle.actionitemlist2 : styles.actionitemlist2}
-                        onPress={()=>navigation.navigate('List', {value:"Favourite"})}
+                        style={nightMode ? nightStyle.actionitemlist2 : styles.actionitemlist2}
+                        onPress={() => navigation.navigate('List', { value: "Favourite" })}
                     >
-                        {/* <Ionicons name="timer-outline" size={70} color="#3466AA" /> */}
-                        <MaterialCommunityIcons name="clipboard-text-outline" size={70} color={nightMode? darkTheme.colors.text : "#3466AA"} />
+                        <MaterialCommunityIcons name="clipboard-text-outline" size={70} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
 
                         <View>
-                            <Text style={nightMode? nightStyle.txt : styles.txt}>Favourite</Text>
-                            <Text style={nightMode? nightStyle.txt : styles.txt}>Tasks</Text>
+                            <Text style={nightMode ? nightStyle.txt : styles.txt}>Favourite</Text>
+                            <Text style={nightMode ? nightStyle.txt : styles.txt}>Tasks</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={nightMode? nightStyle.actionitemlist1 : styles.actionitemlist1}
-                        onPress={()=>navigation.navigate('List', {value:"Completed"})}
+                        style={nightMode ? nightStyle.actionitemlist1 : styles.actionitemlist1}
+                        onPress={() => navigation.navigate('List', { value: "Completed" })}
                     >
-                        <MaterialCommunityIcons name="clipboard-check-outline" size={70} color={nightMode? darkTheme.colors.text : "#3466AA"} />
+                        <MaterialCommunityIcons name="clipboard-check-outline" size={70} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.actionlist}>
                     <TouchableOpacity
-                        style={nightMode? nightStyle.actionitemlist1 : styles.actionitemlist1}
-                        onPress={()=>navigation.navigate('List', {value:"Pending"})}
+                        style={nightMode ? nightStyle.actionitemlist1 : styles.actionitemlist1}
+                        onPress={() => navigation.navigate('List', { value: "Pending" })}
                     >
-                        <MaterialIcons name="pending-actions" size={70}  color={nightMode? darkTheme.colors.text : "#3466AA"} />
+                        <MaterialIcons name="pending-actions" size={70} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={nightMode? nightStyle.actionitemlist2 : styles.actionitemlist2}
-                        onPress={()=>navigation.navigate('List', {value:"Due-Today"})}
+                        style={nightMode ? nightStyle.actionitemlist2 : styles.actionitemlist2}
+                        onPress={() => navigation.navigate('List', { value: "Due-Today" })}
                     >
-                        {/* <Ionicons name="clipboard-outline" size={70} color="#3466AA" /> */}
-                        <MaterialCommunityIcons name="clipboard-alert-outline" size={70}  color={nightMode? darkTheme.colors.text : "#3466AA"} />
+                        <MaterialCommunityIcons name="clipboard-alert-outline" size={70} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
 
                         <View>
-                            <Text style={nightMode? nightStyle.txt : styles.txt}>Pending</Text>
-                            <Text style={nightMode? nightStyle.txt : styles.txt}>Tasks</Text>
-                            <Text style={nightMode? nightStyle.txt : styles.txt}>Today</Text>
+                            <Text style={nightMode ? nightStyle.txt : styles.txt}>Pending</Text>
+                            <Text style={nightMode ? nightStyle.txt : styles.txt}>Tasks</Text>
+                            <Text style={nightMode ? nightStyle.txt : styles.txt}>Today</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -106,7 +124,7 @@ const HomeScreen = ({navigation, nightMode}) => {
 
 const mapStateToProps = state => ({
     nightMode: state.nightMode
-  });
+});
 
 
 export default connect(mapStateToProps)(HomeScreen);

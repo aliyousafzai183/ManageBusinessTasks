@@ -84,7 +84,7 @@ const TasksPage = ({ route, nightMode, toggleNightMode }) => {
                         placeholder="Search"
                         style={ nightMode ? nightStyle.searchInput : styles.searchInput }
                         placeholderTextColor={ nightMode ? darkTheme.colors.text : "gray" }
-                        color={ nightMode ? darkTheme.colors.text : "white" }
+                        color={ nightMode ? darkTheme.colors.text : "black" }
                         value={searchText}
                         onChangeText={handleSearch}
                     />

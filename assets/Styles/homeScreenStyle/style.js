@@ -106,37 +106,39 @@ export default styles = StyleSheet.create({
         shadowRadius: 3,
     },
 
-    txt:{
+    txt: {
         color: '#3466AA',
-        fontSize:15
+        fontSize: 15
     },
 
-    mainImage:{
-        borderRadius:20,
-        width:'70%',
+    mainImage: {
+        width: 200,
+        height: 150,
+        borderRadius: 10,
+        resizeMode: 'cover',
     },
 
-    ImageContainer:{
-        height:'80%',
-        backgroundColor:'#EAEFF6',
-        flexDirection:'row',
+    ImageContainer: {
+        height: '80%',
+        backgroundColor: '#EAEFF6',
+        flexDirection: 'row',
         // justifyContent:'center',
-        alignItems:'center',
-        padding:20,
-        borderRadius:20
+        alignItems: 'center',
+        padding: 20,
+        borderRadius: 20
     },
 
-    textContainer:{
-        width:'30%',
-        alignItems:'flex-start'
+    textContainer: {
+        width: '30%',
+        alignItems: 'flex-start'
     },
 
-    slidertxt:{
-        color:"#3466AA",
-        fontSize:18,
-        fontStyle:'italic',
-        marginBottom:'4%',
-        fontWeight:'bold'
+    slidertxt: {
+        color: "#3466AA",
+        fontSize: 18,
+        fontStyle: 'italic',
+        marginBottom: '4%',
+        fontWeight: 'bold'
     }
 
 })

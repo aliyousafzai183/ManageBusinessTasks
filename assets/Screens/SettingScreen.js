@@ -38,7 +38,7 @@ const SettingScreen = ({nightMode, toggleNightMode}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[nightMode ? nightStyle.actionitemlist1 : styles.actionitemlist1, { opacity: notifications ? 1 : 0.8}]}
+                    style={[nightMode ? nightStyle.actionitemlist1 : styles.actionitemlist1]}
                     activeOpacity={1}
                     onPress={toggleNightMode}
                 >
