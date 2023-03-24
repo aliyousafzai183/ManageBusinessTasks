@@ -14,15 +14,6 @@ import darkTheme from '../Styles/darkTheme';
 // import Carousel from 'react-native-snap-carousel';
 
 const HomeScreen = ({ navigation, nightMode }) => {
-    const images = [
-        { id: 1, url: require('../Instruction1.png') },
-        { id: 2, url: require('../Instruction2.png') },
-        { id: 3, url: require('../Instruction3.png') },
-    ];
-
-    const renderItem = ({ item }) => (
-        <Image source={item.url} style={styles.mainImage} />
-    );
 
     return (
         <View style={nightMode ? nightStyle.main : styles.main}>
@@ -35,15 +26,6 @@ const HomeScreen = ({ navigation, nightMode }) => {
                         <Text style={nightMode ? nightStyle.slidertxt : styles.slidertxt}>One Place</Text>
                     </View>
                     <View>
-                        {/* <Carousel
-                            data={images}
-                            renderItem={renderItem}
-                            sliderWidth={300}
-                            itemWidth={250}
-                            loop={true}
-                            autoplay
-                            autoplayInterval={3000}
-                        /> */}
                         <Image source={require('../Instruction3.png')} />
                     </View>
                 </View>

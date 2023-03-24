@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useState, useEffect } from 'react';
-import { Image, View } from 'react-native';
+import { Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // redux

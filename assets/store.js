@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 
 const initialState = {
-  nightMode: false
+  nightMode: false,
 }
 
 const reducer = (state = initialState, action) => {
