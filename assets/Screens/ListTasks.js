@@ -13,40 +13,42 @@ import nightStyle from '../Styles/listScreenStyle/nightStyle';
 import darkTheme from '../Styles/darkTheme';
 
 // db
-import { getTodos, deleteTodo } from '../db/crud';
+import { getTodos, deleteTodo, updateCompleted, updateFavorite } from '../db/crud';
 
 const TasksPage = ({ route, nightMode, navigation }) => {
-    const [initialTasks, setInitialTasks] = useState([]);
+    // const [initialTasks, setInitialTasks] = useState([]);
 
-    const [tasks, setTasks] = useState(initialTasks);
+    const [tasks, setTasks] = useState([]);
     const [searchText, setSearchText] = useState('');
-    const [refresh, setRefresh] = useState(false); // <-- add refresh state
-
+    const [refresh, setRefresh] = useState(false);
 
     const fetchData = () => {
         getTodos(todos => {
-            setInitialTasks(todos);
-            setRefresh(!refresh); // <-- update refresh state
+            setTasks(todos);
+            setRefresh(!refresh);
         });
 
         if (route.params?.value === 'Completed') {
-            setTasks(initialTasks.filter((task) => task.completed === true));
+            setTasks(tasks.filter((task) => task.completed === true));
         } else if (route.params?.value === 'Pending') {
-            setTasks(initialTasks.filter((task) => task.completed === false));
+            setTasks(tasks.filter((task) => task.completed === false));
         } else if (route.params?.value === 'Favourite') {
-            setTasks(initialTasks.filter((task) => task.favorite === true));
+            setTasks(tasks.filter((task) => task.favorite === true));
         } else if (route.params?.value === 'Due-Today') {
             const now = new Date();
             const year = now.getFullYear();
             const month = now.getMonth() + 1;
             const day = now.getDate();
             const today = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-            setTasks(initialTasks.filter((task) => {
+            setTasks(tasks.filter((task) => {
                 const dueDate = task.dueDate;
                 return (dueDate === today);
             }));
-        } else {
-            setTasks(initialTasks);
+        } else if (searchText != '') {
+            const filteredTasks = tasks.filter((task) =>
+                task.title.toLowerCase().includes(searchText.toLowerCase())
+            );
+            setTasks(filteredTasks);
         }
     }
 
@@ -54,39 +56,22 @@ const TasksPage = ({ route, nightMode, navigation }) => {
         fetchData();
     }, [route.params?.value, refresh]);
 
-    const toggleTask = (taskId) => {
-        setTasks(
-            tasks.map((task) =>
-                task.id === taskId ? { ...task, completed: !task.completed } : task
-            )
-        );
+    const toggleTask = (taskData) => {
+        updateCompleted(taskData.id, !taskData.completed);
     };
 
-    const toggleFavorite = (taskId) => {
-        setTasks(
-            tasks.map((task) =>
-                task.id === taskId ? { ...task, favorite: !task.favorite } : task
-            )
-        );
+    const toggleFavorite = (taskData) => {
+        updateFavorite(taskData.id, !taskData.favourite);
+        setRefresh(!refresh);
     };
 
     const handleSearch = (text) => {
         setSearchText(text);
-
-        if (text === '') {
-            setTasks(initialTasks);
-            return;
-        }
-
-        const filteredTasks = initialTasks.filter((task) =>
-            task.title.toLowerCase().includes(text.toLowerCase())
-        );
-        setTasks(filteredTasks);
     };
 
     const handleDelete = (id) => {
         deleteTodo(id);
-        setRefresh(!refresh); // <-- update refresh state
+        setRefresh(!refresh);
     };
 
     return (
@@ -111,20 +96,20 @@ const TasksPage = ({ route, nightMode, navigation }) => {
                 {tasks.map((task) => (
                     <TouchableOpacity
                         key={task.id} style={nightMode ? nightStyle.taskMain : styles.taskMain}
-                        onPress={()=> navigation.navigate('Add', { item:task }) }
+                        onPress={() => navigation.navigate('Add', { item: task })}
                     >
-                        <TouchableOpacity onPress={() => toggleTask(task.id)} style={nightMode ? nightStyle.toggleButton : styles.toggleButton}>
+                        <TouchableOpacity onPress={() => toggleTask(task)} style={nightMode ? nightStyle.toggleButton : styles.toggleButton}>
                             {task.completed ? (
-                                <Ionicons name="checkmark-circle-outline" size={24} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
+                                <Ionicons name="checkmark-circle-outline" size={30} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
                             ) : (
-                                <Ionicons name="radio-button-off-outline" size={24} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
+                                <Ionicons name="radio-button-off-outline" size={30} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
                             )}
                         </TouchableOpacity>
                         <View key={task.id} style={nightMode ? nightStyle.task : styles.task}>
                             <View style={styles.row}>
                                 <Text style={nightMode ? nightStyle.title : styles.title}>{task.title}</Text>
-                                <TouchableOpacity onPress={() => toggleFavorite(task.id)} style={nightMode ? nightStyle.favoriteButton : styles.favoriteButton}>
-                                    {task.favorite ? (
+                                <TouchableOpacity onPress={() => toggleFavorite(task)} style={nightMode ? nightStyle.favoriteButton : styles.favoriteButton}>
+                                    {task.favourite ? (
                                         <Ionicons name="star" size={24} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
                                     ) : (
                                         <Ionicons name="star-outline" size={24} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
@@ -132,8 +117,8 @@ const TasksPage = ({ route, nightMode, navigation }) => {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.row}>
-                                <Text style={nightMode ? nightStyle.dueDate : styles.dueDate}>Due Date: {task.dueDate ? task.dueDate : "None"}</Text>
-                                <TouchableOpacity style={styles.favoriteButton} onPress={()=>handleDelete(task.id)}>
+                                <Text style={nightMode ? nightStyle.dueDate : styles.dueDate}>Due Date: {task.due_date ? task.due_date : "None"}</Text>
+                                <TouchableOpacity style={styles.favoriteButton} onPress={() => handleDelete(task.id)}>
                                     <AntDesign name="delete" size={24} color={nightMode ? darkTheme.colors.text : "#3466AA"} />
                                 </TouchableOpacity>
                             </View>

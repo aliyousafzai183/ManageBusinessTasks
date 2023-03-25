@@ -23,6 +23,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
     const [isFavourite, setIsFavourite] = useState(false);
     const [notifications, setNotifications] = useState(false);
     const [showDueDateAlert, setShowDueDateAlert] = useState(false);
+    const [completed, setCompleted] = useState(false);
 
     useEffect(() => {
         if (route.params) {
@@ -33,6 +34,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
             setIsFavourite(item.favourite === 1);
             setNotifications(item.completed === 1);
             setShowDueDateAlert(item.due_date_alert === 1);
+            setCompleted(item.completed === 1);
         } else {
             setTitle('');
             setDescription('');
@@ -44,10 +46,26 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
     }, [route.params]);
 
     const handleDateConfirm = date => {
-        setDatePickerVisible(false);
-        setDate(date);
-        setShowDueDateAlert(true);
+        // Get today's date
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        date.setHours(0, 0, 0, 0);
+
+        // If the selected date is before today, show an error message and return
+        if (date < today) {
+            alert("Please select a date that is not in the past.");
+            setDatePickerVisible(false);
+            setNotifications(false);
+            setShowDueDateAlert(false);
+            setDate();
+        } else {
+            setDate(date);
+            setNotifications(true);
+            setDatePickerVisible(false);
+            setShowDueDateAlert(true);
+        }
     };
+
 
     const handleTitleChange = (text) => {
         setTitle(text);
@@ -71,15 +89,15 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
             return;
         }
 
-        if (route.params) {
-            updateTodo( route.params.item.id, title, description, date, notifications, isFavourite, false);
+        if (route.params && route.params.item) {
+            updateTodo(route.params.item.id, title, description, date, showDueDateAlert, isFavourite ? 1 : 0, completed ? 1 : 0);
+            route.params = undefined;
         } else {
-            addTodo(title, description, date, notifications, isFavourite, false);
+            addTodo(title, description, date, showDueDateAlert, isFavourite ? 1 : 0, false);
         }
-
         setTitle('');
         setDescription('');
-        setDate(undefined);
+        setDate();
         setIsFavourite(false);
         setNotifications(false);
         setShowDueDateAlert(false);
@@ -94,8 +112,9 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
         setIsFavourite(false);
         setNotifications(false);
         setShowDueDateAlert(false);
-        if(route.params){
+        if (route.params) {
             deleteTodo(route.params.item.id);
+            route.params = undefined;
             navigation.navigate('List');
         }
     }
@@ -107,7 +126,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
         >
 
             <View style={styles.four}>
-                <Text style={styles.title}>{(route.params? "Update Task" : "Add Task")}</Text>
+                <Text style={styles.title}>{(route.params ? "Update Task" : "Add Task")}</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity
                         onPress={handleClear}
@@ -124,7 +143,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
                     <TouchableOpacity
                         onPress={handleSubmit}
                     >
-                        <AntDesign name={(route.params? "checksquareo" : "plussquareo")} size={35} color={nightMode ? darkTheme.colors.accentColor : darkTheme.colors.text} />
+                        <AntDesign name={(route.params ? "checksquareo" : "plussquareo")} size={35} color={nightMode ? darkTheme.colors.accentColor : darkTheme.colors.text} />
                     </TouchableOpacity>
                 </View>
             </View>
