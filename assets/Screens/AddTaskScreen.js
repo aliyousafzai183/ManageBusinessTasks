@@ -72,7 +72,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
         }
 
         if (route.params) {
-            updateTodo(route.params.item.id, title, description, date, notifications, isFavourite, false);
+            updateTodo( route.params.item.id, title, description, date, notifications, isFavourite, false);
         } else {
             addTodo(title, description, date, notifications, isFavourite, false);
         }

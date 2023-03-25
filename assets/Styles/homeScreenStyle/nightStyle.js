@@ -127,7 +127,6 @@ export default styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         padding:20,
-        borderWidth:2,
         borderRadius:20,
 
         

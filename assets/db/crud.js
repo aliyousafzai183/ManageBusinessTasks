@@ -3,10 +3,9 @@ import db from './Connection';
 // Add a todo item
 const addTodo = (title, description, date, notifications, isFavourite, completed) => {
     db.transaction(tx => {
-        console.log(date);
         tx.executeSql(
             'INSERT INTO todos (title, description, due_date, due_date_alert, favourite, completed) VALUES (?, ?, ?, ?, ?, ?);',
-            [title, description, date, notifications, isFavourite, false],
+            [title, description, date, notifications, isFavourite, completed],
             (_, { insertId, rowsAffected }) => {
                 console.log(`Inserted todo item with id ${insertId}`);
             },
