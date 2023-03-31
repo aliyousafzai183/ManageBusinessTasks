@@ -16,7 +16,7 @@ import darkTheme from '../Styles/darkTheme';
 import { addTodo, updateTodo, deleteTodo } from '../db/crud';
 
 // notifications
-import { Notifications } from 'expo-notifications';
+import * as Notifications from 'expo-notifications';
 
 const AddTaskScreen = ({ navigation, nightMode, route }) => {
     const [title, setTitle] = useState('');
@@ -68,8 +68,8 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
     };
 
     const scheduleNotification = async () => {
-
-        const trigger = date;
+        const trigger = new Date(date);
+        trigger.setMinutes(trigger.getMinutes() - 1);
         const identifier = await Notifications.scheduleNotificationAsync({
             content: {
                 title: 'Todo Alert',
