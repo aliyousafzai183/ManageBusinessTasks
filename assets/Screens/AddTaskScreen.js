@@ -15,6 +15,9 @@ import darkTheme from '../Styles/darkTheme';
 // db
 import { addTodo, updateTodo, deleteTodo } from '../db/crud';
 
+// notifications
+import { Notifications } from 'expo-notifications';
+
 const AddTaskScreen = ({ navigation, nightMode, route }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -43,7 +46,41 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
             setNotifications(false);
             setShowDueDateAlert(false);
         }
+
+        const requestPermission = async () => {
+            const { status } = await Notifications.requestPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Permission to show notifications has not been granted');
+            }
+        };
+
+        requestPermission();
+
+        const subscription = Notifications.addNotificationReceivedListener(
+            handleNotification
+        );
+
+        return () => subscription.remove();
     }, [route.params]);
+
+    const handleNotification = (notification) => {
+        // handle the notification
+    };
+
+    const scheduleNotification = async () => {
+
+        const trigger = date;
+        const identifier = await Notifications.scheduleNotificationAsync({
+            content: {
+                title: 'Todo Alert',
+                body: title,
+                data: { description },
+            },
+            trigger,
+        });
+
+        console.log(`Scheduled notification with id: ${identifier}`);
+    };
 
     const handleDateConfirm = date => {
         // Get today's date
@@ -83,7 +120,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
         setNotifications(!notifications);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!title.trim()) {
             console.log("Empty Title!");
             return;
@@ -93,13 +130,17 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
             route.params = undefined;
 
         } else {
-            addTodo(title, description, date, showDueDateAlert , isFavourite , false);
+            addTodo(title, description, date, showDueDateAlert, isFavourite, false);
             setTitle('');
             setDescription('');
             setDate(new Date()); // initialize with a valid date value
             setIsFavourite(false);
             setNotifications(false);
             setShowDueDateAlert(false);
+        }
+
+        if (notifications){
+            await scheduleNotification();
         }
 
         navigation.navigate('List');
