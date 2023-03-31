@@ -15,33 +15,24 @@ import darkTheme from '../Styles/darkTheme';
 // db
 import { getTodos, deleteTodo, updateCompleted, updateFavorite } from '../db/crud';
 
-// notifications
-import * as Notifications from 'expo-notifications';
-
-// Request permission to show notifications (only needed on iOS)
-Notifications.requestPermissionsAsync().then((status) => {
-  console.log('Permission status:', status.status);
-});
-
 const TasksPage = ({ route, nightMode, navigation }) => {
   const [tasks, setTasks] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [refresh, setRefresh] = useState(false);
-  const [notificationId, setNotificationId] = useState();
   const [today, setToday] = useState('');
 
   const fetchData = () => {
-    getTodos(todos => {
+    getTodos((todos) => {
       setTasks(todos);
       setRefresh(!refresh);
     });
 
     const now = new Date();
-      const year = now.getFullYear();
-      const month = now.getMonth() + 1;
-      const day = now.getDate();
-      const today = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-      setToday(today);
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const today = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    setToday(today);
 
     if (route.params?.value === 'Completed') {
       setTasks(tasks.filter((task) => task.completed == 1));
@@ -52,7 +43,7 @@ const TasksPage = ({ route, nightMode, navigation }) => {
     } else if (route.params?.value === 'Due-Today') {
       setTasks(tasks.filter((task) => {
         const dueDate = task.due_date;
-        return (dueDate === today && task.completed == 0);
+        return dueDate === today && task.completed == 0;
       }));
     } else if (searchText != '') {
       const filteredTasks = tasks.filter((task) =>
@@ -60,33 +51,10 @@ const TasksPage = ({ route, nightMode, navigation }) => {
       );
       setTasks(filteredTasks);
     }
-  }
-
-  const checkForDueToday = () => {
-    tasks.filter((task) => {
-      const dueDate = task.due_date;
-      if (dueDate === today) {
-        console.log("Found");
-        // Schedule a notification to be shown 10 seconds from now
-        const notificationId = Notifications.scheduleNotificationAsync({
-          content: {
-            title: 'My Notification Title',
-            body: 'Here is the notification message',
-          },
-          trigger: {
-            seconds: 10,
-            repeats: false,
-          },
-        });
-        setNotificationId(notificationId);
-        console.log("Notification Rung");
-      }
-    });
   };
 
   useEffect(() => {
     fetchData();
-    checkForDueToday();
   }, [route.params?.value, refresh]);
 
   const toggleTask = (taskData) => {
@@ -106,9 +74,6 @@ const TasksPage = ({ route, nightMode, navigation }) => {
     deleteTodo(id);
     setRefresh(!refresh);
   };
-
-  // Cancel the scheduled notification
-  // Notifications.cancelScheduledNotificationAsync(notificationId);
 
   return (
     <View style={nightMode ? nightStyle.container : styles.container}>
