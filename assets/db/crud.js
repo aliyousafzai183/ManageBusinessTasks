@@ -3,7 +3,6 @@ import db from './Connection';
 // Add a todo item
 const addTodo = (title, description, date, dueDateAlert, isFavourite, completed) => {
     const formattedDate = date ? date.toISOString().slice(0, 10) : null;
-    console.log(formattedDate);
     db.transaction(tx => {
         tx.executeSql(
             'INSERT INTO todos (title, description, due_date, due_date_alert, favourite, completed) VALUES (?, ?, ?, ?, ?, ?);',
@@ -36,11 +35,12 @@ const getTodos = callback => {
 };
 
 // Update a todo item
-const updateTodo = (id, title, description, dueDate, dueDateAlert, favourite, completed) => {
+const updateTodo = (id, title, description, date, dueDateAlert, favourite, completed) => {
+    const formattedDate = date ? date.toISOString().slice(0, 10) : null;
     db.transaction(tx => {
         tx.executeSql(
             'UPDATE todos SET title=?, description=?, due_date=?, due_date_alert=?, favourite=?, completed=? WHERE id=?;',
-            [title, description, dueDate, dueDateAlert, favourite, completed, id],
+            [title, description, formattedDate, dueDateAlert, favourite, completed, id],
             (_, { rowsAffected }) => {
                 console.log(`Updated ${rowsAffected} rows`);
             },

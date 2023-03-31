@@ -18,7 +18,7 @@ import { addTodo, updateTodo, deleteTodo } from '../db/crud';
 const AddTaskScreen = ({ navigation, nightMode, route }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [date, setDate] = useState();
+    const [date, setDate] = useState(new Date());
     const [isDatePickerVisible, setDatePickerVisible] = useState(false);
     const [isFavourite, setIsFavourite] = useState(false);
     const [notifications, setNotifications] = useState(false);
@@ -30,7 +30,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
             const { item } = route.params;
             setTitle(item.title || '');
             setDescription(item.description || '');
-            setDate(item.due_date || '');
+            setDate(item.due_date ? new Date(item.due_date) : new Date()); // create a valid date from `due_date` or initialize with a valid date value
             setIsFavourite(item.favourite === 1);
             setNotifications(item.completed === 1);
             setShowDueDateAlert(item.due_date_alert === 1);
@@ -38,7 +38,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
         } else {
             setTitle('');
             setDescription('');
-            setDate();
+            setDate(new Date()); // initialize with a valid date value
             setIsFavourite(false);
             setNotifications(false);
             setShowDueDateAlert(false);
@@ -57,7 +57,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
             setDatePickerVisible(false);
             setNotifications(false);
             setShowDueDateAlert(false);
-            setDate();
+            setDate(new Date()); // initialize with a valid date value
         } else {
             setDate(date);
             setNotifications(true);
@@ -88,21 +88,21 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
             console.log("Empty Title!");
             return;
         }
-
         if (route.params && route.params.item) {
-            updateTodo(route.params.item.id, title, description, date, showDueDateAlert, isFavourite ? 1 : 0, completed ? 1 : 0);
+            updateTodo(route.params.item.id, title, description, date, showDueDateAlert, isFavourite, completed);
             route.params = undefined;
-        } else {
-            addTodo(title, description, date, showDueDateAlert, isFavourite ? 1 : 0, false);
-        }
-        setTitle('');
-        setDescription('');
-        setDate();
-        setIsFavourite(false);
-        setNotifications(false);
-        setShowDueDateAlert(false);
-        navigation.navigate('List');
 
+        } else {
+            addTodo(title, description, date, showDueDateAlert , isFavourite , false);
+            setTitle('');
+            setDescription('');
+            setDate(new Date()); // initialize with a valid date value
+            setIsFavourite(false);
+            setNotifications(false);
+            setShowDueDateAlert(false);
+        }
+
+        navigation.navigate('List');
     };
 
     const handleClear = () => {
@@ -196,7 +196,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
                     <View style={nightMode ? nightStyle.dateContainer : styles.dateContainer}>
                         <Text style={nightMode ? nightStyle.label : styles.label}>Due date:</Text>
                         <Text style={nightMode ? nightStyle.date : styles.date}>
-                            {date ? format(date, 'MMM dd, yyyy') : 'None'}
+                            {date && format(date, 'MMMM do, yyyy')}
                         </Text>
                     </View>
                     <DateTimePickerModal
