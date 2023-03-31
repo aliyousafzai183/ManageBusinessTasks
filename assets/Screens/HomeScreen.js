@@ -10,9 +10,6 @@ import styles from '../Styles/homeScreenStyle/style';
 import nightStyle from '../Styles/homeScreenStyle/nightStyle';
 import darkTheme from '../Styles/darkTheme';
 
-// carousel
-// import Carousel from 'react-native-snap-carousel';
-
 const HomeScreen = ({ navigation, nightMode }) => {
 
     return (

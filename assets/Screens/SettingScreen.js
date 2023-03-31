@@ -1,6 +1,6 @@
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
-import { connect, Connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 // icons
 import { Octicons, AntDesign, Ionicons } from '@expo/vector-icons';

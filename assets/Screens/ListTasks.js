@@ -19,7 +19,6 @@ const TasksPage = ({ route, nightMode, navigation }) => {
   const [tasks, setTasks] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [refresh, setRefresh] = useState(false);
-  const [today, setToday] = useState('');
 
   const fetchData = () => {
     getTodos((todos) => {
@@ -32,7 +31,6 @@ const TasksPage = ({ route, nightMode, navigation }) => {
     const month = now.getMonth() + 1;
     const day = now.getDate();
     const today = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-    setToday(today);
 
     if (route.params?.value === 'Completed') {
       setTasks(tasks.filter((task) => task.completed == 1));
