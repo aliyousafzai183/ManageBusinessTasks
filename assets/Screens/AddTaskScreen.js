@@ -18,7 +18,7 @@ import { addTodo, updateTodo, deleteTodo } from '../db/crud';
 // notifications
 import * as Notifications from 'expo-notifications';
 
-const AddTaskScreen = ({ navigation, nightMode, route }) => {
+const AddTaskScreen = ({ navigation, nightMode, route, notifyMe }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(new Date());
@@ -139,7 +139,7 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
             setShowDueDateAlert(false);
         }
 
-        if (notifications){
+        if (notifications && notifyMe){
             await scheduleNotification();
         }
 
@@ -256,7 +256,8 @@ const AddTaskScreen = ({ navigation, nightMode, route }) => {
 };
 
 const mapStateToProps = state => ({
-    nightMode: state.nightMode
+    nightMode: state.nightMode,
+    notifyMe: state.notifyMe
 });
 
 export default connect(mapStateToProps)(AddTaskScreen);

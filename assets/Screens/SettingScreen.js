@@ -4,20 +4,13 @@ import { connect } from 'react-redux';
 
 // icons
 import { Octicons, AntDesign, Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
 
 // styles
 import styles from '../Styles/settingScreenStyle/style';
 import nightStyle from '../Styles/settingScreenStyle/nightStyle';
 import darkTheme from '../Styles/darkTheme';
 
-const SettingScreen = ({nightMode, toggleNightMode}) => {
-
-    const [notifications, setNotifications] = useState(true);
-
-    const handleNotifications = () => {
-        setNotifications(!notifications);
-    }
+const SettingScreen = ({nightMode, toggleNightMode, toggleNotifyMe}) => {
 
     return (
         <View style={nightMode ? nightStyle.container : styles.container}>
@@ -31,7 +24,7 @@ const SettingScreen = ({nightMode, toggleNightMode}) => {
                 <TouchableOpacity
                     style={[nightMode ? nightStyle.actionitemlist1 : styles.actionitemlist1, { opacity: notifications ? 1 : 0.8}]}
                     activeOpacity={1}
-                    onPress={handleNotifications}
+                    onPress={toggleNotifyMe}
                 >
                     <Ionicons name={notifications ? 'notifications-outline' : 'notifications-off-outline'} size={70} color={nightMode ? 'white' : '#3466AA'} />
                     <Text style={[styles.txt, { color: nightMode ? darkTheme.colors.text : '#3466AA' }]}>{notifications ? "ON" : "OFF"}</Text>
@@ -64,11 +57,12 @@ const SettingScreen = ({nightMode, toggleNightMode}) => {
 };
 
 const mapStateToProps = state => ({
-    nightMode: state.nightMode
+    nightMode: state.nightMode,
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleNightMode: () => dispatch({type: 'TOGGLE_NIGHT_MODE'})
+    toggleNightMode: () => dispatch({type: 'TOGGLE_NIGHT_MODE'}),
+    toggleNotifyMe: () => dispatch({type: 'TOGGLE_NOTIFICATION'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen);
