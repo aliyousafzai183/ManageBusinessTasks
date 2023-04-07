@@ -10,7 +10,7 @@ import styles from '../Styles/settingScreenStyle/style';
 import nightStyle from '../Styles/settingScreenStyle/nightStyle';
 import darkTheme from '../Styles/darkTheme';
 
-const SettingScreen = ({nightMode, toggleNightMode, toggleNotifyMe}) => {
+const SettingScreen = ({nightMode, toggleNightMode, toggleNotifyMe, notifications}) => {
 
     return (
         <View style={nightMode ? nightStyle.container : styles.container}>
@@ -58,6 +58,7 @@ const SettingScreen = ({nightMode, toggleNightMode, toggleNotifyMe}) => {
 
 const mapStateToProps = state => ({
     nightMode: state.nightMode,
+    notifications: state.notifications
 });
 
 const mapDispatchToProps = dispatch => ({
